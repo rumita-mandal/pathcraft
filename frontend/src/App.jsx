@@ -461,7 +461,7 @@ export default function App() {
   useEffect(() => {
     const fetchCareers = async () => {
       setIsLoading(true)
-      const baseUrl = import.meta.env.VITE_API_URL || `http://${window.location.hostname || 'localhost'}:8000/api`
+      const baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:8000/api' : 'https://pathcraft-api-247n.onrender.com/api'
       try {
         const response = await fetch(`${baseUrl}/careers/`)
         if (response.ok) {
@@ -513,7 +513,7 @@ export default function App() {
   }, [])
 
   const fetchUserProgress = async (authToken) => {
-    const baseUrl = import.meta.env.VITE_API_URL || `http://${window.location.hostname || 'localhost'}:8000/api`
+    const baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:8000/api' : 'https://pathcraft-api-247n.onrender.com/api'
     try {
       const response = await fetch(`${baseUrl}/progress/`, {
         headers: {
@@ -554,7 +554,7 @@ export default function App() {
         const ids = JSON.parse(localProgress)
         // Fire sync commands in the background
         ids.forEach(async (nodeId) => {
-          const baseUrl = import.meta.env.VITE_API_URL || `http://${window.location.hostname || 'localhost'}:8000/api`
+          const baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:8000/api' : 'https://pathcraft-api-247n.onrender.com/api'
           try {
             await fetch(`${baseUrl}/progress/`, {
               method: 'POST',
@@ -590,7 +590,7 @@ export default function App() {
   // Fetch complete career detail (including nodes & resources) when selected
   const handleSelectCareer = async (career) => {
     setIsLoading(true)
-    const baseUrl = import.meta.env.VITE_API_URL || `http://${window.location.hostname || 'localhost'}:8000/api`
+    const baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:8000/api' : 'https://pathcraft-api-247n.onrender.com/api'
     try {
       const response = await fetch(`${baseUrl}/careers/${career.slug}/`)
       if (response.ok) {
@@ -627,7 +627,7 @@ export default function App() {
 
     // Secure sync toggle check to Django REST backend if authorized
     if (token) {
-      const baseUrl = import.meta.env.VITE_API_URL || `http://${window.location.hostname || 'localhost'}:8000/api`
+      const baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:8000/api' : 'https://pathcraft-api-247n.onrender.com/api'
       try {
         await fetch(`${baseUrl}/progress/`, {
           method: 'POST',

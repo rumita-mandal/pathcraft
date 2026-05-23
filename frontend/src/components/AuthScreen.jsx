@@ -15,7 +15,7 @@ export default function AuthScreen({ onAuthSuccess, onBackToHome }) {
     setError('')
     setIsLoading(true)
 
-    const baseUrl = import.meta.env.VITE_API_URL || `http://${window.location.hostname || 'localhost'}:8000/api`
+    const baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:8000/api' : 'https://pathcraft-api-247n.onrender.com/api'
     const endpoint = isLogin ? '/login/' : '/register/'
     const url = `${baseUrl}${endpoint}`
 

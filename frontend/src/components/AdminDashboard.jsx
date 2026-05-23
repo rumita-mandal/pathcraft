@@ -10,7 +10,7 @@ export default function AdminDashboard({ token, onBackToHome }) {
   const fetchStats = async () => {
     setIsLoading(true)
     setError('')
-    const baseUrl = import.meta.env.VITE_API_URL || `http://${window.location.hostname || 'localhost'}:8000/api`
+    const baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:8000/api' : 'https://pathcraft-api-247n.onrender.com/api'
     try {
       const response = await fetch(`${baseUrl}/admin/stats/`, {
         headers: {
