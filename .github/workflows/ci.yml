@@ -86,3 +86,13 @@ jobs:
         context: ./frontend
         file: ./frontend/Dockerfile
         push: false
+          # Job 4: Trigger Deployment (Render Auto-Deploy)
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [docker-validation]
+    steps:
+    - name: Render Deployment Status
+      run: |
+        echo "🚀 Validation Complete! Code is merged to main."
+        echo "✅ Render is automatically pulling these changes and deploying them to production right now."
+        echo "To track the live deployment, check your Render dashboard."
