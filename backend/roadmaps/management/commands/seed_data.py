@@ -1,4 +1,6 @@
 from django.core.management.base import BaseCommand
+import os
+from django.contrib.auth.models import User
 from roadmaps.models import Career, RoadmapNode, Resource
 
 class Command(BaseCommand):
@@ -422,5 +424,14 @@ class Command(BaseCommand):
         save_nodes_and_resources(devops, nodes_do)
         save_nodes_and_resources(ai, nodes_ai)
         save_nodes_and_resources(cyber, nodes_cy)
+
+        # Automatically create an admin user so you don't need shell access on Render's free tier
+        admin_username = os.environ.get('DJANGO_SUPERUSER_USERNAME', 'admin')
+        admin_email = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'admin@example.com')
+        admin_password = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'admin123')
+
+        if not User.objects.filter(username=admin_username).exists():
+            self.stdout.write(f"Creating default superuser: {admin_username}...")
+            User.objects.create_superuser(admin_username, admin_email, admin_password)
 
         self.stdout.write(self.style.SUCCESS("Database successfully seeded with 5 careers and rich educational roadmaps!"))
