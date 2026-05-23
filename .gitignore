@@ -1,0 +1,23 @@
+# Local virtual environments
+backend/venv/
+backend/create_admin.py
+
+# React dependencies and builds
+frontend/node_modules/
+frontend/dist/
+
+# Gradle and Java caches (if any)
+.gradle/
+build/
+
+# Local databases and locks
+*.sqlite3
+*.db
+backend/db.sqlite3
+
+# IDE / System configurations
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log

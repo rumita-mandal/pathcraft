@@ -1,0 +1,13 @@
+venv/
+.git/
+.github/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.db.sqlite3
+db.sqlite3
+.pytest_cache/
+.vscode/
+.idea/
+create_admin.py
