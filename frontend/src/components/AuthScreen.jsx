@@ -15,9 +15,9 @@ export default function AuthScreen({ onAuthSuccess, onBackToHome }) {
     setError('')
     setIsLoading(true)
 
-    const host = window.location.hostname || 'localhost'
-    const endpoint = isLogin ? '/api/login/' : '/api/register/'
-    const url = `http://${host}:8000${endpoint}`
+    const baseUrl = import.meta.env.VITE_API_URL || `http://${window.location.hostname || 'localhost'}:8000/api`
+    const endpoint = isLogin ? '/login/' : '/register/'
+    const url = `${baseUrl}${endpoint}`
 
     const payload = isLogin 
       ? { username, password }

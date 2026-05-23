@@ -461,9 +461,9 @@ export default function App() {
   useEffect(() => {
     const fetchCareers = async () => {
       setIsLoading(true)
-      const host = window.location.hostname || 'localhost'
+      const baseUrl = import.meta.env.VITE_API_URL || `http://${window.location.hostname || 'localhost'}:8000/api`
       try {
-        const response = await fetch(`http://${host}:8000/api/careers/`)
+        const response = await fetch(`${baseUrl}/careers/`)
         if (response.ok) {
           const data = await response.json()
           if (data && data.length > 0) {
@@ -513,9 +513,9 @@ export default function App() {
   }, [])
 
   const fetchUserProgress = async (authToken) => {
-    const host = window.location.hostname || 'localhost'
+    const baseUrl = import.meta.env.VITE_API_URL || `http://${window.location.hostname || 'localhost'}:8000/api`
     try {
-      const response = await fetch(`http://${host}:8000/api/progress/`, {
+      const response = await fetch(`${baseUrl}/progress/`, {
         headers: {
           'Authorization': `Token ${authToken}`
         }
@@ -554,9 +554,9 @@ export default function App() {
         const ids = JSON.parse(localProgress)
         // Fire sync commands in the background
         ids.forEach(async (nodeId) => {
-          const host = window.location.hostname || 'localhost'
+          const baseUrl = import.meta.env.VITE_API_URL || `http://${window.location.hostname || 'localhost'}:8000/api`
           try {
-            await fetch(`http://${host}:8000/api/progress/`, {
+            await fetch(`${baseUrl}/progress/`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -590,9 +590,9 @@ export default function App() {
   // Fetch complete career detail (including nodes & resources) when selected
   const handleSelectCareer = async (career) => {
     setIsLoading(true)
-    const host = window.location.hostname || 'localhost'
+    const baseUrl = import.meta.env.VITE_API_URL || `http://${window.location.hostname || 'localhost'}:8000/api`
     try {
-      const response = await fetch(`http://${host}:8000/api/careers/${career.slug}/`)
+      const response = await fetch(`${baseUrl}/careers/${career.slug}/`)
       if (response.ok) {
         const fullDetail = await response.json()
         setSelectedCareer(fullDetail)
@@ -627,9 +627,9 @@ export default function App() {
 
     // Secure sync toggle check to Django REST backend if authorized
     if (token) {
-      const host = window.location.hostname || 'localhost'
+      const baseUrl = import.meta.env.VITE_API_URL || `http://${window.location.hostname || 'localhost'}:8000/api`
       try {
-        await fetch(`http://${host}:8000/api/progress/`, {
+        await fetch(`${baseUrl}/progress/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

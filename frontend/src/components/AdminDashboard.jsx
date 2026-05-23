@@ -10,9 +10,9 @@ export default function AdminDashboard({ token, onBackToHome }) {
   const fetchStats = async () => {
     setIsLoading(true)
     setError('')
-    const host = window.location.hostname || 'localhost'
+    const baseUrl = import.meta.env.VITE_API_URL || `http://${window.location.hostname || 'localhost'}:8000/api`
     try {
-      const response = await fetch(`http://${host}:8000/api/admin/stats/`, {
+      const response = await fetch(`${baseUrl}/admin/stats/`, {
         headers: {
           'Authorization': `Token ${token}`
         }
